@@ -37,6 +37,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.campusnavigator_compose.ui.theme.CampusNavigator_ComposeTheme
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.runtime.collectAsState
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -120,11 +121,11 @@ fun MainScreen() {
 }
 
 @Composable
-fun HomeScreen(edificioSeleccionado: String) {
+fun HomeScreen(viewModel: SeleccionViewModel) {
+    val edificioSeleccionado by viewModel.edificio.collectAsState()
+
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
+        modifier = Modifier.fillMaxSize().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(text = "Bienvenido a la app de Edificios")
