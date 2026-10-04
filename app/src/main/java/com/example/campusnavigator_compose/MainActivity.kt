@@ -133,23 +133,19 @@ fun HomeScreen(edificioSeleccionado: String) {
 }
 
 @Composable
-fun EdificiosScreen(onEdificioSeleccionado: (String) -> Unit) {
+fun EdificiosScreen(viewModel: SeleccionViewModel) {
     val edificios = listOf("Biblioteca Central", "Pabellón A", "Pabellón B", "Auditorio")
 
     LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
+        modifier = Modifier.fillMaxSize().padding(16.dp)
     ) {
         items(edificios) { nombre ->
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp),
+                modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(text = nombre, modifier = Modifier.weight(1f))
-                Button(onClick = { onEdificioSeleccionado(nombre) }) {
+                Button(onClick = { viewModel.seleccionar(nombre) }) {
                     Text("Ver")
                 }
             }
