@@ -36,6 +36,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.campusnavigator_compose.ui.theme.CampusNavigator_ComposeTheme
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,7 +75,7 @@ sealed class Screen(val route: String, val label: String) {
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
-    var edificioSeleccionado by remember { mutableStateOf("Ninguno") }
+    val seleccionViewModel: SeleccionViewModel = viewModel()
 
     val items = listOf(Screen.Home, Screen.Edificios, Screen.Mapa)
 
@@ -106,14 +107,10 @@ fun MainScreen() {
             modifier = Modifier.padding(padding)
         ) {
             composable(Screen.Home.route) {
-                HomeScreen(edificioSeleccionado = edificioSeleccionado)
+                HomeScreen(viewModel = seleccionViewModel)
             }
             composable(Screen.Edificios.route) {
-                EdificiosScreen(
-                    onEdificioSeleccionado = { nombre ->
-                        edificioSeleccionado = nombre
-                    }
-                )
+                EdificiosScreen(viewModel = seleccionViewModel)
             }
             composable(Screen.Mapa.route) {
                 MapaScreen()
