@@ -16,6 +16,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Place
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -71,6 +72,7 @@ sealed class Screen(val route: String, val label: String) {
     object Home : Screen("home", "Home")
     object Edificios : Screen("edificios", "Edificios")
     object Mapa : Screen("mapa", "Mapa")
+    object Perfil : Screen("perfil", "Perfil")
 }
 
 @Composable
@@ -78,7 +80,7 @@ fun MainScreen() {
     val navController = rememberNavController()
     val seleccionViewModel: SeleccionViewModel = viewModel()
 
-    val items = listOf(Screen.Home, Screen.Edificios, Screen.Mapa)
+    val items = listOf(Screen.Home, Screen.Edificios, Screen.Mapa, Screen.Perfil)
 
     Scaffold(
         bottomBar = {
@@ -91,6 +93,7 @@ fun MainScreen() {
                         Screen.Home -> Icons.Default.Home
                         Screen.Edificios -> Icons.Default.List
                         Screen.Mapa -> Icons.Default.Place
+                        Screen.Perfil -> Icons.Default.Person
                     }
                     NavigationBarItem(
                         selected = currentRoute == screen.route,
@@ -115,6 +118,9 @@ fun MainScreen() {
             }
             composable(Screen.Mapa.route) {
                 MapaScreen()
+            }
+            composable(Screen.Perfil.route) {
+                PerfilScreen()
             }
         }
     }
@@ -161,5 +167,15 @@ fun MapaScreen() {
         contentAlignment = Alignment.Center
     ) {
         Text(text = "Mapa de ubicaciones (pendiente de integrar)")
+    }
+}
+
+@Composable
+fun PerfilScreen() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(text = "Perfil de usuario (pendiente de integrar)")
     }
 }
